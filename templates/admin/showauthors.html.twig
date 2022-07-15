@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+        {% for author in authors %}
+            {% include  'admin/_author.html.twig' %}
+        {% endfor %}
+
+{% endblock %}
+

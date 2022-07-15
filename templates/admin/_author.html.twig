@@ -1,0 +1,9 @@
+<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+    <h3 class="uk-card-title">{{ author.firstName }} {{ author.lastName }}</h3>
+    <p>{{ author.birthDate|date('Y-m-d') }} / {{ author.deathDate|date('Y-m-d') }}</p>
+    <button class="uk-button uk-button-default uk-button-small"><a href="#">See his/her book(s)</a></button>
+    <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_delete_author', {'id': author.id}) }}">Delete this author card</a></button>
+    <button class="uk-button uk-button-default uk-button-small"><a href="#">Update this author card</a></button>
+</div>
+
+
