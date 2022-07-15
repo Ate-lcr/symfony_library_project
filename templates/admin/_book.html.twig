@@ -1,0 +1,11 @@
+<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+    <h3 class="uk-card-title">{{ book.title }}</h3>
+    <p>Nb of pages {{ book.nbpages }}</p>
+    <p>Published on {{ book.publishedAt|date('Y-m-d') }}</p>
+   <p>Written by {{ book.author.firstName }} {{ book.author.lastName }}</p>
+    <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_author', {'id': book.author.id}) }}">See author's card</a></button>
+    <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_delete_book', {'id': book.id}) }}">Delete this book's card</a></button>
+    <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_book_update', {'id': book.id}) }}">Update this book's card</a></button>
+</div>
+
+

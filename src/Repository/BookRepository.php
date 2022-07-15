@@ -39,6 +39,26 @@ class BookRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchByWord($search)
+    {
+
+        // j'instancie un query builder afin de faire des requetes SQL en php
+        $qb = $this->createQueryBuilder('book');
+
+        // je fais une requete select sur ma table article
+        $query = $qb->select('book')
+            // je récupère les livres dont le titre correspond à :"marecherche"
+            ->where('book.Title LIKE :search')
+            // je défini la valeur de :marecherche, il peut contenir des caractères avant et après
+            // setParametre pour sécuriser via Doctrine Symfony (éviter injections SQL ++)
+            ->setParameter('search', '%'.$search.'%')
+            // je récupère la requête
+            ->getQuery();
+
+        // je l'execute en bdd !
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */

@@ -3,35 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Author;
-use App\Repository\ArticleRepository;
+use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminAuthorController extends AbstractController
 {
-    /**
-     * @Route("/admin/insert-author", name="admin_insert_author")
-     */
-    //On crée un nouvel enregistrement dans la table authors
-    public function insertAuthor(EntityManagerInterface $entityManager){
-        $author = new Author();
-
-//            J'utilise les setters pour en définir les attributs
-        $author->setFirstName("William");
-        $author->setLastName("Shakespeare");
-        $author->setBirthDate(new \DateTime("1564-04-26"));
-        $author->setDeathDate(new \DateTime("1616-04-23"));
-
-//            On fait une sauvegarde(bdd) avant de faire l'inscription en bdd'
-        $entityManager->persist($author);
-        $entityManager->flush();
-
-        dump($author); die;
-    }
-
 
 //    Affichage d'un auteur de ma bdd
     /**
@@ -78,4 +59,56 @@ class AdminAuthorController extends AbstractController
         }
     }
 
+
+    /**
+     * @Route ("/admin/create-author", name="admin_create_author")
+     */
+    public function createAuthors (Request $request, EntityManagerInterface $entityManager)
+    {
+        $author = new author();
+        $form=$this->createform(AuthorType::class, $author);
+
+//        On donne à la variable qui contient le formulaire une instance de la classe Request pour que le formulaire
+//        puisse récupérer toutes les données des inputs et faire les setters sur les articles automatiquement
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($author);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Author card created!");
+        }
+
+        return $this->render("admin/create_author.html.twig", [
+            'form'=> $form->createview()
+
+        ]);
+    }
+
+    //On modifie (update) un author à l'aide de son id
+    //Mélange de ArticleRepository pour le sélectionner puis EntityManager pour le modifier.
+    /**
+     * @Route ("/admin/author/update/{id}", name="admin_author_update")
+     */
+    public function updateAuthor(AuthorRepository$authorRepository, $id, EntityManagerInterface $entityManager, Request $request)
+    {
+        $author = $authorRepository->find($id);
+        $form = $this->createform(AuthorType::class, $author);
+
+//        On donne à la variable qui contient le formulaire une instance de la classe Request pour que le formulaire
+//        puisse récupérer toutes les données des inputs et faire les setters sur les articles automatiquement
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($author);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Author's card updated!");
+        }
+
+        return $this->render("admin/create_author.html.twig", [
+            'form' => $form->createview()
+
+        ]);
+    }
 }

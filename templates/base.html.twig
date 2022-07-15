@@ -17,19 +17,25 @@
                     <div class="uk-navbar-left uk-margin-medium-left	">
 
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active"><a href="#">Home</a></li>
+                            <li class="uk-active"><a href="{{ path ('admin_authors')}}">Home</a></li>
                             <li>
                                 <a href="#">Admin</a>
                                 <div class="uk-navbar-dropdown">
                                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li><a href="#">Insert an author</a></li>
-                                        <li><a href="#">Insert a book</a></li>
+                                        <li><a href="{{ path ('admin_create_author')}}">Insert an author</a></li>
+                                        <li><a href="{{ path ('admin_create_book')}}">Insert a book</a></li>
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="#">Authors</a></li>
-                            <li><a href="#">Books</a></li>
+                            <li><a href="{{ path ('admin_authors')}}">Authors</a></li>
+                            <li><a href="{{ path ('admin_books')}}">Books</a></li>
                         </ul>
+                        <div class="uk-navbar-item">
+                            <form role="search" method="GET" action="{{ path('admin_search_books') }}">
+                                <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Input">
+                                <button class="uk-button uk-button-default" type="submit">Search</button>
+                            </form>
+                        </div>
 
                     </div>
                 </nav>
