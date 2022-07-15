@@ -13,6 +13,10 @@ use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 class AdminBookController extends AbstractController
 {
@@ -71,7 +75,7 @@ class AdminBookController extends AbstractController
     /**
      * @Route ("/admin/create-book", name="admin_create_book")
      */
-    public function createBooks(Request $request, EntityManagerInterface $entityManager)
+    public function createBooks(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger)
     {
         $book = new Book();
         $form = $this->createform(BookType::class, $book);
@@ -81,6 +85,25 @@ class AdminBookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cover_img = $form->get('coverImg')->getData();
+
+            if ($cover_img) {
+                $originalFilename = pathinfo($cover_img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$cover_img->guessExtension();
+
+                try {
+                    $cover_img->move(
+                        $this->getParameter('uploadimg'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $book->setCoverImg($newFilename);
+            }
+
             $entityManager->persist($book);
             $entityManager->flush();
 
@@ -98,7 +121,7 @@ class AdminBookController extends AbstractController
     /**
      * @Route ("/admin/book/update/{id}", name="admin_book_update")
      */
-    public function updateBook(BookRepository $bookRepository, $id, EntityManagerInterface $entityManager, Request $request)
+    public function updateBook(BookRepository $bookRepository, $id, EntityManagerInterface $entityManager, Request $request,SluggerInterface $slugger)
     {
         $book = $bookRepository->find($id);
         $form = $this->createform(BookType::class, $book);
@@ -108,6 +131,25 @@ class AdminBookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cover_img = $form->get('coverImg')->getData();
+
+            if ($cover_img) {
+                $originalFilename = pathinfo($cover_img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$cover_img->guessExtension();
+
+                try {
+                    $cover_img->move(
+                        $this->getParameter('uploadimg'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $book->setCoverImg($newFilename);
+            }
+
             $entityManager->persist($book);
             $entityManager->flush();
 

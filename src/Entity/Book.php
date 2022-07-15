@@ -25,6 +25,9 @@ class Book
     #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'book')]
     private $author;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $coverImg;
+
 
     public function getId(): ?int
     {
@@ -75,6 +78,18 @@ class Book
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCoverImg(): ?string
+    {
+        return $this->coverImg;
+    }
+
+    public function setCoverImg(?string $coverImg): self
+    {
+        $this->coverImg = $coverImg;
 
         return $this;
     }
