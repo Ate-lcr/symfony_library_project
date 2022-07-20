@@ -1,0 +1,18 @@
+$primary-color: #b9b1b1;
+
+h1 {
+  color: $primary-color;
+}
+
+
+%alert-success {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: green;
+}
+
+
+%alert-fail {
+  @extend %alert-success;
+  color : red;
+}

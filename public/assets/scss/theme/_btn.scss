@@ -1,0 +1,5 @@
+@mixin mainBtn($secondary-color: lightblue) {
+  background: $secondary-color;
+  box-shadow: 0 0 1px rgba($secondary-color, .25);
+  color: #fff;
+}
