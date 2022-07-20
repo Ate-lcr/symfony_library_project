@@ -17,20 +17,37 @@
                     <div class="uk-navbar-left uk-margin-medium-left	">
 
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active"><a href="{{ path ('books')}}">Home</a></li>
-
-                            <li><a href="{{ path ('authors')}}">Authors</a></li>
-                            <li><a href="{{ path ('books')}}">Books</a></li>
+                            <li class="uk-active"><a href="{{ path ('admin_authors')}}">Home</a></li>
+                            <li>
+                                <a href="#">Admin</a>
+                                <div class="uk-navbar-dropdown">
+                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                        <li><a href="{{ path ('admin_create_author')}}">Insert an author</a></li>
+                                        <li><a href="{{ path ('admin_create_book')}}">Insert a book</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="{{ path ('admin_authors')}}">Authors</a></li>
+                            <li><a href="{{ path ('admin_books')}}">Books</a></li>
                         </ul>
                         <div class="uk-navbar-item">
-                            <form role="search" method="GET" action="{{ path('search_books') }}">
+                            <form role="search" method="GET" action="{{ path('admin_search_books') }}">
                                 <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Input">
                                 <button class="uk-button uk-button-default" type="submit">Search</button>
                             </form>
                         </div>
 
                     </div>
+                    <div class="uk-navbar-right uk-margin-medium-right">
+                        <p class="uk-navbar-nav uk-text-bold">Bonjour {{ app.user.email }} !</p>
 
+                        <ul class="uk-navbar-nav">
+                            <li><a href="{{ path ('app_logout')}}">Déconnexion</a></li>
+                            <li><a href="{{ path ('app_login')}}">Connexion</a></li>
+
+                        </ul>
+
+                    </div>
                 </nav>
 
             </header>

@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+{% for book in books %}
+        {% include  'front/_book.html.twig' %}
+    {% endfor %}
+{% endblock %}
+
