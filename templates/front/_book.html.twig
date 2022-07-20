@@ -12,7 +12,7 @@
             <p>Nb of pages {{ book.nbpages }}</p>
             <p>Published on {{ book.publishedAt|date('Y-m-d') }}</p>
             <p>Written by {{ book.author.firstName }} {{ book.author.lastName }}</p>
-            <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_author', {'id': book.author.id}) }}">See author's card</a></button>
+            <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('author', {'id': book.author.id}) }}">See author's card</a></button>
         </div>
     </div>
 </div>
