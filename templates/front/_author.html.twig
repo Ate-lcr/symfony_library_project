@@ -3,7 +3,8 @@
     <p>{{ author.birthDate|date('Y-m-d') }} / {{ author.deathDate|date('Y-m-d') }}</p>
     <p>Books by this author</p>
     {% for book in author.book %}
-    <p>{{ book.title }} </p>
+        <p>{{book.title}}</p>
+        <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('search_books') }}?search={{book.title}} ">See book's card</a></button>
     {% endfor %}
 </div>
 

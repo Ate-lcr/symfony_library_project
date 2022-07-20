@@ -4,7 +4,12 @@
     <p>Books by this author</p>
     {% for book in author.book %}
     <p>{{ book.title }} </p>
+    <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_search_books') }}?search={{book.title}} ">See book's card</a></button>
+
     {% endfor %}
+    <br>
+    <br>
+    <br>
 
     <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_delete_author', {'id': author.id}) }}">Delete this author card</a></button>
     <button class="uk-button uk-button-default uk-button-small"><a href="{{ path ('admin_author_update', {'id': author.id}) }}">Update this author card</a></button>
