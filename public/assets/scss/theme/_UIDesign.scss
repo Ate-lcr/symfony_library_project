@@ -16,3 +16,24 @@ h1 {
   @extend %alert-success;
   color : red;
 }
+
+
+
+//Dark mode enabled
+.night-activated {
+  background-color: #3f3f3f;
+}
+
+.night-activated nav {
+  background-color: #181818;
+}
+
+.night-activated p{
+  color: #d0d0d0;
+}
+
+
+.night-activated .js-night{
+  background-color: #3f3f3f;
+  color: #f3f3f3;
+}
