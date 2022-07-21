@@ -1,0 +1,22 @@
+{% extends 'admin/admin.base.html.twig' %}
+
+{% block main %}
+
+    {% for admin in admins %}
+        <div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">{{ admin.email }}</h3>
+                    {% for role in admin.roles %}
+                    <p>{{ role }}</p>
+                    {% endfor %}
+                <p>Password {{ admin.password }}</p>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}
+
+
+
