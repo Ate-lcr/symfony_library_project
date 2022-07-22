@@ -16,45 +16,74 @@
 
         {% block header %}
             <header>
-                <nav class="uk-navbar-container uk-margin" uk-navbar="mode: click">
-                    <div class="uk-navbar-left uk-margin-medium-left	">
-
+                <nav class="uk-navbar uk-margin">
+                    <div class="uk-navbar-left uk-margin-medium-left">
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active"><a href="{{ path ('admin_authors')}}">Home</a></li>
-                            <li>
-                                <a href="#">Admin</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li><a href="{{ path ('admin_create_author')}}">Insert an author</a></li>
-                                        <li><a href="{{ path ('admin_create_book')}}">Insert a book</a></li>
-                                    </ul>
-                                </div>
+                            <li class="uk-active">
+                                <a href="#">Symfony<strong>Library_project</strong></a>
                             </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-item uk-margin-medium-left uk-visible@s">
+                        <form role="search" method="GET" action="{{ path('admin_search_books') }}">
+                            <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Your search">
+                            <button class="uk-button uk-button-default" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="uk-navbar-left uk-margin-medium-left">
+                        <ul class="uk-navbar-nav uk-visible@s">
                             <li><a href="{{ path ('admin_authors')}}">Authors</a></li>
                             <li><a href="{{ path ('admin_books')}}">Books</a></li>
+                            <li><a href="{{ path ('admin_create_author')}}">Insert an author</a></li>
+                            <li><a href="{{ path ('admin_create_book')}}">Insert a book</a></li>
+
                         </ul>
-                        <div class="uk-navbar-item">
-                            <form role="search" method="GET" action="{{ path('admin_search_books') }}">
-                                <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Input">
-                                <button class="uk-button uk-button-default" type="submit">Search</button>
-                            </form>
+                    </div>
+
+                    <div class="uk-navbar-right uk-margin-medium-right uk-visible@xl">
+                            <p class="uk-navbar-nav uk-text-bold uk-visible@s">Bonjour {{ app.user.email }} !</p>
+
+                            <ul class="uk-navbar-nav uk-visible@s">
+                                <li><a href="{{ path ('app_logout')}}">Déconnexion</a></li>
+                                <li><a href="{{ path ('app_login')}}">Connexion</a></li>
+
+                            </ul>
+                            <p uk-margin>
+                                <button class="uk-button uk-button-default js-night uk-visible@s">Night Mode</button>
+                            </p>
+
                         </div>
 
-                    </div>
-                    <div class="uk-navbar-right uk-margin-medium-right">
-                        <p class="uk-navbar-nav uk-text-bold">Bonjour {{ app.user.email }} !</p>
-
-                        <ul class="uk-navbar-nav">
-                            <li><a href="{{ path ('app_logout')}}">Déconnexion</a></li>
-                            <li><a href="{{ path ('app_login')}}">Connexion</a></li>
-
-                        </ul>
-                        <p uk-margin>
-                            <button class="uk-button uk-button-default js-night">Night Mode</button>
-                        </p>
-
-                    </div>
+                        <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
                 </nav>
+            </header>
+
+            <div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas">
+                <div class="uk-offcanvas-bar">
+                    <ul class="uk-nav">
+                        <br>
+
+                        <li><a href="{{ path ('admin_authors')}}">Authors</a></li>
+                        <li><a href="{{ path ('admin_books')}}">Books</a></li>
+                        <li><a href="{{ path ('admin_create_author')}}">Insert an author</a></li>
+                        <li><a href="{{ path ('admin_create_book')}}">Insert a book</a></li>
+
+                        <br>
+                        <form role="search" method="GET" action="{{ path('admin_search_books') }}">
+                            <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Your search">
+                            <br>
+                            <br>
+                            <button class="uk-button uk-button-default" type="submit">Search</button>
+                        </form>
+                        <br>
+                        <br>
+                        <li><a href="{{ path ('app_logout')}}">Déconnexion</a></li>
+                        <li><a href="{{ path ('app_login')}}">Connexion</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
 
             </header>
         {% endblock %}

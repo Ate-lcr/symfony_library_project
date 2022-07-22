@@ -19,27 +19,56 @@
 
         {% block header %}
             <header>
-                <nav class="uk-navbar-container uk-margin" uk-navbar="mode: click">
-                    <div class="uk-navbar-left uk-margin-medium-left	">
 
+                <nav class="uk-navbar uk-margin">
+                    <div class="uk-navbar-left uk-margin-medium-left">
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active"><a href="{{ path ('books')}}">Home</a></li>
-
+                            <li class="uk-active">
+                                <a href="#">Symfony<strong>Library_project</strong></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-item uk-margin-medium-left uk-visible@s">
+                        <form role="search" method="GET" action="{{ path('search_books') }}">
+                            <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Your search">
+                            <button class="uk-button uk-button-default" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="uk-navbar-left uk-margin-medium-left">
+                        <ul class="uk-navbar-nav uk-visible@s">
                             <li><a href="{{ path ('authors')}}">Authors</a></li>
                             <li><a href="{{ path ('books')}}">Books</a></li>
                         </ul>
+
                         <p uk-margin>
-                            <button class="js-night uk-button uk-button-default ">Night Mode</button>
+                            <button class="uk-button uk-button-default js-night uk-visible@s">Night Mode</button>
                         </p>
-                        <div class="uk-navbar-item">
-                            <form role="search" method="GET" action="{{ path('search_books') }}">
-                                <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Input">
-                                <button class="uk-button uk-button-default js-night" type="submit">Search</button>
-                            </form>
-                        </div>
                     </div>
+
+                    <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
                 </nav>
             </header>
+
+            <div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas">
+                <div class="uk-offcanvas-bar">
+                    <ul class="uk-nav">
+                        <br>
+
+                        <li><a href="{{ path ('authors')}}">Authors</a></li>
+                        <li><a href="{{ path ('books')}}">Books</a></li>
+
+                        <br>
+                        <form role="search" method="GET" action="{{ path('search_books') }}">
+                            <input class="uk-input uk-form-width-small" type="text" name="search" placeholder="Your search">
+                            <br>
+                            <br>
+                            <button class="uk-button uk-button-default" type="submit">Search</button>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+
+
         {% endblock %}
 
         {% for message in app.flashes('success') %}
