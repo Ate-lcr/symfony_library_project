@@ -1,13 +1,27 @@
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  display: inline-block;
+}
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+h1 {
+  color: #b9b1b1;
+}
+
 .night-activated {
   background-color: #3f3f3f;
 }
 
-.night-activated nav {
+.js-body nav {
   background-color: #181818;
-}
-
-.night-activated p {
-  color: #d0d0d0;
 }
 
 .night-activated .js-night {
